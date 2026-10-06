@@ -4,16 +4,25 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Comercio;
+use App\Http\Controllers\ComercioController;
 
 class ComercioController extends Controller
 {
     public function index()
     {
-    return Comercio::with('transacciones')->get();
+     $comercios = Comercio::withCount('transacciones')->get();
+     return view('comercios.index', [
+        'comercios' => $comercios
+     ]);
+
     }
 
     public function show(Comercio $comercio)
     {
-    return $comercio->load('transacciones');
+    $comercio->load('transacciones'); 
+     return view('comercios.show', [
+            'comercio' => $comercio,
+
+        ]);
     }
 }

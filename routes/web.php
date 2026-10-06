@@ -5,17 +5,6 @@ use App\Http\Controllers\ComercioController;
 use App\Http\Controllers\TransaccionController;
 use App\Http\Controllers\EventoTransaccionController;
 
-Route::get('/', function () {
-return view('welcome');
-});
-Route::get('/taskboard', function () {
-return 'Bienvenido a TaskBoard, tu pasarela de pagos.';
-});
-
-Route::get('/acerca-de',function () {
-    return 'Esto es taskboard, una pasarela de pagos para tu negocio.';
-});
-
 Route::get('/contacto', function () {
     return 'Adriana Marcela Hernandez Recinos, correo: adriana.hernandez64876@uped.edu.sv';
 });
@@ -26,7 +15,7 @@ Route::get('/estados', function () {
     ];
 });
 
-Route::get('transaccion/demo', function () {
+Route::get('/transaccion/demo', function () {
     return [
         "id" => 1,
         "comercio" => "Café Amanecer",
@@ -36,7 +25,6 @@ Route::get('transaccion/demo', function () {
     ];
 });
 
-
 Route::get('/transacciones', [TransaccionController::class, 'index'])->name('transacciones.index');
 
 Route::get('/transaccion/{transaccion}', [TransaccionController::class, 'show']);
@@ -45,6 +33,5 @@ Route::get('/eventos-transaccion', [EventoTransaccionController::class, 'index']
 
 Route::prefix('comercios')->name('comercios.')->group(function () {
     Route::get('/', [ComercioController::class, 'index'])->name('index');
-    
-Route::get('/comercio/{comercio}', [ComercioController::class, 'show']);
+    Route::get('/{comercio}', [ComercioController::class, 'show'])->name('show');
 });
